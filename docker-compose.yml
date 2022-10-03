@@ -1,0 +1,47 @@
+version: '3.3'
+
+services:
+  # A PostgreSQL database for the Broker to store Pacts and verification results
+  postgres:
+    image: postgres:13.5
+    healthcheck:
+      test: psql postgres --command "select 1" -U pactbrokeruser
+    ports:
+      - target: 5432
+        published: 1238
+        mode: host
+    volumes:
+      - type: bind
+        source: ./postgres/
+        target: /var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: pactbrokeruser
+      POSTGRES_PASSWORD: pactbrokeruser
+      POSTGRES_DB: pactbroker
+
+  # The Pact Broker
+  broker_app:
+    # Alternatively the DiUS Pact Broker can be used:
+    # image: dius/pact-broker
+    #
+    # As well as changing the image, the destination port will need to be changed
+    # from 9292 below, and in the nginx.conf proxy_pass section
+    image: pactfoundation/pact-broker
+    ports:
+      - "80:9292"
+    links:
+      - postgres
+    environment:
+      PACT_BROKER_DATABASE_USERNAME: pactbrokeruser
+      PACT_BROKER_DATABASE_PASSWORD: pactbrokeruser
+      PACT_BROKER_DATABASE_HOST: postgres
+      PACT_BROKER_DATABASE_NAME: pactbroker
+      PACT_BROKER_BASIC_AUTH_USERNAME: myuser
+      PACT_BROKER_BASIC_AUTH_PASSWORD: mypassword
+    # The Pact Broker provides a healthcheck endpoint which we will use to wait
+    # for it to become available before starting up
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--tries=1", "--spider", "http://myuser:mypassword@localhost:9292/diagnostic/status/heartbeat" ]
+      interval: 1s
+      timeout: 2s
+      retries: 5
