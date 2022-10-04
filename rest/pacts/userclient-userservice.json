@@ -19,6 +19,7 @@
         },
         "body": {
           "name": "UserA",
+          "username": "usera",
           "id": "fc763eba-0905-41c5-a27f-3934ab26786c",
           "created_on": "2016-12-15T20:16:01",
           "ip_address": "127.0.0.1",

@@ -7,6 +7,7 @@ import requests
 @dataclass
 class User:
     name: str
+    username: str
 
 
 class UserClient:
@@ -18,4 +19,5 @@ class UserClient:
         response = requests.get(uri)
         if response.status_code == 404:
             return None
-        return User(name=response.json()["name"])
+        response_json = response.json()
+        return User(name=response_json["name"], username=response_json["username"])

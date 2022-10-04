@@ -78,6 +78,7 @@ def test_get_user_non_admin(pact, consumer):
     # Define the Matcher; the expected structure and content of the response
     expected = {
         "name": "UserA",
+        "username": "usera",
         "id": Format().uuid,
         "created_on": Term(r"\d+-\d+-\d+T\d+:\d+:\d+", "2016-12-15T20:16:01"),
         "ip_address": Format().ip_address,
@@ -102,6 +103,7 @@ def test_get_user_non_admin(pact, consumer):
 
         # In this case the mock Provider will have returned a valid response
         assert user.name == "UserA"
+        assert user.username == "usera"
 
         # Make sure that all interactions defined occurred
         pact.verify()
