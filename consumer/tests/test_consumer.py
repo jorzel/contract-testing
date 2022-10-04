@@ -107,7 +107,7 @@ def test_get_user_non_admin(pact, consumer):
         pact.verify()
 
 
-def test_get_non_existing_user(pact, consumer):
+def _test_get_non_existing_user(pact, consumer):
     # Define the expected behaviour of the Provider. This determines how the
     # Pact mock provider will behave. In this case, we expect a 404
     (
