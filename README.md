@@ -1,4 +1,4 @@
-Simple playoground app for pact python contract testing.
+Simple playground app for [pact-python](https://github.com/pact-foundation/pact-python/) contract testing.
 
 1. Run pact broker:
 ```
