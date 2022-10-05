@@ -1,0 +1,51 @@
+{
+  "consumer": {
+    "name": "AnalyticsService"
+  },
+  "provider": {
+    "name": "RegistrationService"
+  },
+  "messages": [
+    {
+      "description": "user_id(int), username(str), event_name(str)",
+      "providerStates": [
+        {
+          "name": "Registration handled",
+          "params": null
+        }
+      ],
+      "contents": {
+        "event_name": "registered_user",
+        "username": "username",
+        "user_id": 1
+      },
+      "matchingRules": {
+        "body": {
+          "$.username": {
+            "matchers": [
+              {
+                "match": "regex",
+                "regex": "[a-zA-Z]+"
+              }
+            ]
+          },
+          "$.user_id": {
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          }
+        }
+      },
+      "metaData": {
+        "Content-Type": "application/json"
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  }
+}

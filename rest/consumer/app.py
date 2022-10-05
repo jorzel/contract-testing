@@ -20,4 +20,7 @@ class UserClient:
         if response.status_code == 404:
             return None
         response_json = response.json()
-        return User(name=response_json["name"], username=response_json["username"])
+        return User(
+            name=response_json["name"],
+            username=response_json["username"],
+        )
