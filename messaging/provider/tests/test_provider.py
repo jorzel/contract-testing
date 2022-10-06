@@ -13,7 +13,7 @@ def default_opts():
         "broker_username": PACT_BROKER_USERNAME,
         "broker_password": PACT_BROKER_PASSWORD,
         "broker_url": PACT_BROKER_URL,
-        "publish_version": "3",
+        "publish_version": "6",
         "publish_verification_results": False,
     }
 
@@ -22,7 +22,7 @@ def test_verify_from_broker(default_opts):
     # key in provider should meet `given` section provided by consumer pact
     provider = MessageProvider(
         message_providers={
-            "Registration handled": RegisteredUserEvent(
+            "registered_user event": RegisteredUserEvent(
                 user_id=1, username="test"
             ).as_dict
         },

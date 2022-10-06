@@ -34,14 +34,14 @@ def pact(request):
     yield pact
 
 
-def test_throw_exception_handler(pact):
+def test_throw_exception_when_registered_user_event_is_not_proper(pact):
     wrong_event = {
         "event_name": "registered_user",
         "username": Term("[a-zA-Z]+", "username"),
     }
 
     (
-        pact.given("Registered event not proper")
+        pact.given("registered_user event not proper")
         .expects_to_receive("user_id field not exist")
         .with_content(wrong_event)
         .with_metadata({"Content-Type": "application/json"})
@@ -52,14 +52,14 @@ def test_throw_exception_handler(pact):
             handle_registered_user_event(wrong_event)
 
 
-def test_put_file(pact):
+def test_generate_pact_for_registerd_user_event(pact):
     expected_event = {
         "event_name": "registered_user",
         "username": Term("[a-zA-Z]+", "username"),
         "user_id": Format().integer,
     }
     (
-        pact.given("Registration handled")
+        pact.given("registered_user event")
         .expects_to_receive("user_id(int), username(str), event_name(str)")
         .with_content(expected_event)
         .with_metadata({"Content-Type": "application/json"})
@@ -67,4 +67,4 @@ def test_put_file(pact):
 
     with pact:
         event = handle_registered_user_event(expected_event)
-    assert event.event_name == "registered_user"
+        assert event.event_name == "registered_user"

@@ -22,8 +22,7 @@ class RegistrationService:
     dispatcher = EventDispatcher()
 
     def register_user(self, username: str) -> None:
-        # create user
-        event = RegisteredUserEvent(
-            user_id=random.randint(1, 100000), username=username
-        )
+        # create user here
+        user_id = random.randint(1, 100000)
+        event = RegisteredUserEvent(user_id=user_id, username=username)
         self.dispatcher(event.event_name, event.as_dict())

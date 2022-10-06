@@ -10,7 +10,7 @@
       "description": "user_id(int), username(str), event_name(str)",
       "providerStates": [
         {
-          "name": "Registration handled",
+          "name": "registered_user event",
           "params": null
         }
       ],

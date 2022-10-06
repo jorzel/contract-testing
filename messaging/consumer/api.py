@@ -15,11 +15,16 @@ class RegisteredUserEvent:
     event_name: str = "registered_user"
 
 
-def handle_registered_user_event(event: dict[str, Any]):
-    print(event)
-    if not event.get("user_id") or not event.get("username"):
+def handle_registered_user_event(
+    serialized_event: dict[str, Any]
+) -> RegisteredUserEvent:
+    if not serialized_event.get("user_id") or not serialized_event.get("username"):
         raise RegisteredUserEventError
-    return RegisteredUserEvent(user_id=event["user_id"], username=event["username"])
+    event = RegisteredUserEvent(
+        user_id=serialized_event["user_id"], username=serialized_event["username"]
+    )
+    # do something interesting here
+    return event
 
 
 class AnalyticsService:
