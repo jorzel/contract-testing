@@ -9,6 +9,7 @@ class RegisteredUserEvent:
     user_id: int
     username: str
     event_name: str = "registered_user"
+    test: int = 1
 
     def as_dict(self):
         return asdict(self)

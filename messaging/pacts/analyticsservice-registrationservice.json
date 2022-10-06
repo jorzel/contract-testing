@@ -17,7 +17,8 @@
       "contents": {
         "event_name": "registered_user",
         "username": "username",
-        "user_id": 1
+        "user_id": 1,
+        "test": 1
       },
       "matchingRules": {
         "body": {

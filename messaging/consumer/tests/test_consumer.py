@@ -57,6 +57,7 @@ def test_generate_pact_for_registerd_user_event(pact):
         "event_name": "registered_user",
         "username": Term("[a-zA-Z]+", "username"),
         "user_id": Format().integer,
+        "test": 1,
     }
     (
         pact.given("registered_user event")
