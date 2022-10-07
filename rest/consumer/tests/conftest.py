@@ -15,3 +15,8 @@ def pytest_addoption(parser):
     parser.addoption(
         "--provider-url", type=str, action="store", help="The url to our provider."
     )
+    parser.addoption(
+        "--env",
+        type=str,
+        action="store",
+    )
